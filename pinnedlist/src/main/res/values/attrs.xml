@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="PinnedListLayout">
+        <attr name="type" format="enum">
+            <enum name="text" value="0"/>
+            <enum name="image" value="1"/>
+        </attr>
+        <attr name="layout_pin_width" format="dimension">
+            <enum name="match_parent" value="-1" />
+            <enum name="wrap_content" value="-2" />
+        </attr>
+        <attr name="layout_pin_height" format="dimension">
+            <enum name="wrap_content" value="-2" />
+        </attr>
+        <attr name="pin_vertical_position" format="enum">
+            <enum name="top" value="0"/>
+            <enum name="center" value="1"/>
+        </attr>
+        <attr name="pin_margin" format="dimension"/>
+        <attr name="pin_margin_left" format="dimension"/>
+        <attr name="pin_margin_right" format="dimension"/>
+        <attr name="pin_margin_top" format="dimension"/>
+        <attr name="pin_margin_bottom" format="dimension"/>
+
+        <attr name="pin_text_size" format="dimension"/>
+        <attr name="fade_effect" format="boolean"/>
+        <attr name="pin_text_color" format="color"/>
+    </declare-styleable>
+
+</resources>

@@ -1,0 +1,27 @@
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="gvillani.it.pinnedlistdemo">
+
+    <application
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme">
+        <activity
+            android:name=".DemoActivity"
+            android:theme="@style/AppTheme.NoActionBar">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity android:name=".DemoTextActivity"
+            android:label="Demo Pinned Text"
+            android:theme="@style/AppTheme.NoActionBar"/>
+        <activity android:name=".DemoImageActivity"
+            android:label="Demo Pinned Image"
+            android:theme="@style/AppTheme.NoActionBar"/>
+    </application>
+
+</manifest>
