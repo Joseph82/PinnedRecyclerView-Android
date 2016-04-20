@@ -47,7 +47,7 @@ mListAdapter = new ContactAdapter(this, listGroup, mListLayout);
 mRecyclerView.setAdapter(mListAdapter);
 ```
 
-Moreover, if you whant create a GroupListWrapper using the `createAlphabeticList` you need to tell the system which label will be applied for your object and the related order. For example if you have a Contact object that contains name and surname you can do something like this:
+Moreover, if you want create a GroupListWrapper using the `createAlphabeticList` you need to tell the system which label will be applied for your object and the related order. For example if you have a Contact object that contains name and surname you can do something like this:
 
 ```Java
 public class Contact implements GroupListWrapper.Selector{
@@ -67,7 +67,7 @@ In this way you are telling the system that you want that your pin label will ha
 
 In order to use a pinned list with image you need to set in your layout:
 
-`app:type="text"`
+`app:type="image"`
 
 You create your `GroupListWrapper`
 
