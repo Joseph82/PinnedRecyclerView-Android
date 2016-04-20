@@ -1,5 +1,5 @@
 # PinnedList Android library
-This library allows you to create a list of items that are pinned by a floating label (text or image).
+This library allows you to create a list of items that are pinned by a floating label (text or image) on the left of the list .
 
 ## PinnedList in action
 
@@ -34,7 +34,7 @@ mListLayout = (PinnedListLayout)findViewById(R.id.pinned_layout);
 mRecyclerView = mListLayout.getRecyclerView();
 ```
 
-Create a `GroupListWrapper` with the static method `createAlphabeticList()`
+Create a `GroupListWrapper` with the static method `createAlphabeticList()`. You can also create it manually managing each group, but if you want a simple alphabetically ordered  list using create `createAlphabeticList()` is the fastest way.
 
 ```Java
 GroupListWrapper listGroup = GroupListWrapper.createAlphabeticList(contacts, GroupListWrapper.ASCENDING);
@@ -46,6 +46,22 @@ And finally instantiate your custom Adapter (it must extend `PinnedAdapter`) and
 mListAdapter = new ContactAdapter(this, listGroup, mListLayout);
 mRecyclerView.setAdapter(mListAdapter);
 ```
+
+Moreover, if you whant create a GroupListWrapper using the `createAlphabeticList` you need to tell the system which label will be applied for your object and the related order. For example if you have a Contact object that contains name and surname you can do something like this:
+
+```Java
+public class Contact implements GroupListWrapper.Selector{
+    private String name;
+    private String surname;
+
+    @Override
+    public String select() {
+        return name+surname;
+    }
+}
+```
+
+In this way you are telling the system that you want that your pin label will have the first letter of the name and they should be ordered using the name and the surname (if the name is the same).
 
 ### Pinned Image List
 
@@ -78,11 +94,26 @@ And eventually you add one or more `Group` object to the `GroupListWrapper`
 listGroup.addGroup(groupD);
 ```
 
-And finally instantiate your custom Adapter (it must extend `PinnedAdapter`) and set it to the RecyclerView
+Finally instantiate your custom Adapter (it must extend `PinnedAdapter`) and set it to the RecyclerView
 
 ```Java
 mListAdapter = new ContactAdapter(this, listGroup, mListLayout);
 mRecyclerView.setAdapter(mListAdapter);
+```
+
+### The Adapter
+
+As before mentioned, you need to create your custom Adapter extending `PinnedAdapter` class. 
+
+When you override the method `onCreateViewHolder` you need to create your custom row layout (for example using inflater) and then you need to allow the system to wrap that layout inside a layout that contains the pin. So, you simply need to obtain a wrapped version of your layout passing it to `getRowLayout()` as shown in the example below:
+
+```Java
+@Override
+public PinnedViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    View view = mLayoutInflater.inflate(R.layout.item_contact, parent, false);
+    ViewHolderContact viewHolderContact = new ViewHolderContact(getRowLayout(view));
+    return viewHolderContact;
+}
 ```
 
 ## Note
@@ -94,3 +125,6 @@ The library support only the LinearLayoutManager, so if you try to set a differe
 ## TODO
 
 * Allow the user to manipulate the content of the adapter without replacing the entire dataset.
+* Support for `GridLayoutManager`
+* Find different strategy that make the wrapping of the custom layout inside the pinner layout more transparent (user should not call `getRowLayout()` from his adapter)
+* Allow groups manipulation 
