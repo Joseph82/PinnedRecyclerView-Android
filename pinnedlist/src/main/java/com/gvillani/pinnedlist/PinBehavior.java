@@ -16,7 +16,6 @@ import android.widget.TextView;
 import java.util.List;
 
 
-
 /**
  * Created by Giuseppe on 08/04/2016.
  */
@@ -55,8 +54,8 @@ public class PinBehavior extends CoordinatorLayout.Behavior<View> {
     public Parcelable onSaveInstanceState(CoordinatorLayout parent, View child) {
         View v = child.findViewById(R.id.pin);
         String text = null;
-        if( v instanceof TextView){
-            text = ((TextView)v).getText()!=null ? ((TextView)v).getText().toString() : null;
+        if (v instanceof TextView) {
+            text = ((TextView) v).getText() != null ? ((TextView) v).getText().toString() : null;
         }
 
         return new SavedState(super.onSaveInstanceState(parent, child), mCurrentOffset,
@@ -75,13 +74,13 @@ public class PinBehavior extends CoordinatorLayout.Behavior<View> {
         mFirstLayout = ss.isFirstLayout;
         mVerticalScrollOffset = ss.verticalScrollOffset;
 
-        if(mPinInizialized){
+        if (mPinInizialized) {
             child.setVisibility(View.VISIBLE);
             View v = child.findViewById(R.id.pin);
-            if(v instanceof TextView){
+            if (v instanceof TextView) {
                 ((TextView) v).setText(ss.currentText);
-            }else if(v instanceof ImageView){
-                if(mCurrentImage!=0){
+            } else if (v instanceof ImageView) {
+                if (mCurrentImage != 0) {
                     ((ImageView) v).setImageResource(mCurrentImage);
                 }
             }
@@ -93,18 +92,18 @@ public class PinBehavior extends CoordinatorLayout.Behavior<View> {
         mIsCenteredVertical = ss.isCenteredVertical;
         mRelativeOffset = ss.relOffset;
 
-        if(mIsCenteredVertical){
+        if (mIsCenteredVertical) {
             centerVerticalPin(child);
         }
     }
 
-    private void centerVerticalPin(View container){
+    private void centerVerticalPin(View container) {
         View pin = container.findViewById(R.id.pin);
-        CoordinatorLayout.LayoutParams params = (CoordinatorLayout.LayoutParams)container.getLayoutParams();
+        CoordinatorLayout.LayoutParams params = (CoordinatorLayout.LayoutParams) container.getLayoutParams();
         params.height = mItemHeight;
         container.setLayoutParams(params);
 
-        FrameLayout.LayoutParams params1 = (FrameLayout.LayoutParams)pin.getLayoutParams();
+        FrameLayout.LayoutParams params1 = (FrameLayout.LayoutParams) pin.getLayoutParams();
         params1.gravity = Gravity.CENTER_VERTICAL;
         pin.setLayoutParams(params1);
     }
@@ -120,7 +119,7 @@ public class PinBehavior extends CoordinatorLayout.Behavior<View> {
 
         final List<View> dependencies = parent.getDependencies(child);
 
-        if(dependencies.size() == 1 && dependencies.get(0) instanceof RecyclerView){
+        if (dependencies.size() == 1 && dependencies.get(0) instanceof RecyclerView) {
             final RecyclerView recyclerView = (RecyclerView) dependencies.get(0);
             mAdapter = recyclerView.getAdapter();
 
@@ -132,26 +131,26 @@ public class PinBehavior extends CoordinatorLayout.Behavior<View> {
                 }
             });
 
-            if(mAdapter.getItemCount() > 0) {
+            if (mAdapter.getItemCount() > 0) {
                 mItemHeight = recyclerView.getLayoutManager().getDecoratedMeasuredHeight((recyclerView).getChildAt(0));
             }
 
             mLayoutManager = (LinearLayoutManager) recyclerView.getLayoutManager();
-            if(restoredInstance){
+            if (restoredInstance) {
                 restoredInstance = false;
                 updateView(child, recyclerView, mVerticalScrollOffset - recyclerView.computeVerticalScrollOffset());
                 //updatePinContent(child);
             }
 
-            if(mFirstLayout){
+            if (mFirstLayout) {
                 mFirstLayout = false;
-                mRelativeOffset +=recyclerView.getTop();
+                mRelativeOffset += recyclerView.getTop();
             }
         }
 
         child.offsetTopAndBottom(mRelativeOffset);
 
-        if(mFadeEffect && mPinInizialized){
+        if (mFadeEffect && mPinInizialized) {
             setAlpha(child);
         }
 
@@ -179,10 +178,10 @@ public class PinBehavior extends CoordinatorLayout.Behavior<View> {
                                   int dx, int dy,
                                   int[] consumed) {
 
-        if(target instanceof RecyclerView){
-            if(!mPinInizialized)
+        if (target instanceof RecyclerView) {
+            if (!mPinInizialized)
                 initPin(child);
-            if(child.getVisibility() == View.INVISIBLE)
+            if (child.getVisibility() == View.INVISIBLE)
                 child.setVisibility(View.VISIBLE);
         }
 
@@ -205,37 +204,37 @@ public class PinBehavior extends CoordinatorLayout.Behavior<View> {
                                int dxConsumed, int dyConsumed,
                                int dxUnconsumed, int dyUnconsumed) {
 
-        if(target instanceof RecyclerView){
+        if (target instanceof RecyclerView) {
             updateView(child, target, dyConsumed);
         }
     }
 
-    private void updateView(View child, View target, int dy){
+    private void updateView(View child, View target, int dy) {
         boolean isLastItem = isLastItemGroup();
 
-        if(isLastItem){
-            mVerticalScrollOffset = ((RecyclerView)target).computeVerticalScrollOffset();
+        if (isLastItem) {
+            mVerticalScrollOffset = ((RecyclerView) target).computeVerticalScrollOffset();
             int newOffset = mVerticalScrollOffset % mItemHeight;
             int increment = newOffset - mCurrentOffset;
             mCurrentOffset = newOffset;
 
             child.offsetTopAndBottom(-increment);
 
-            if(mFadeEffect)
+            if (mFadeEffect)
                 setAlpha(child);
 
-            if(mCurrentDirection == DIRECTION_DOWN ||
-                    (mCurrentDirection == DIRECTION_UP && increment < 0)){
+            if (mCurrentDirection == DIRECTION_DOWN ||
+                    (mCurrentDirection == DIRECTION_UP && increment < 0)) {
                 updatePinContent(child);
             }
-        }else{
+        } else {
 
-            if(mCurrentOffset !=0 || dy > mItemHeight){
-                if(mCurrentOffset !=0){
+            if (mCurrentOffset != 0 || dy > mItemHeight) {
+                if (mCurrentOffset != 0) {
                     child.offsetTopAndBottom(mCurrentOffset);
 
                     mCurrentOffset = 0;
-                    if(mFadeEffect)
+                    if (mFadeEffect)
                         removeAlpha(child);
 
                 }
@@ -247,17 +246,17 @@ public class PinBehavior extends CoordinatorLayout.Behavior<View> {
 
     @Override
     public boolean onNestedPreFling(CoordinatorLayout coordinatorLayout, final View child, View target, float velocityX, float velocityY) {
-        if(target instanceof RecyclerView){
+        if (target instanceof RecyclerView) {
 
-            if(!mPinInizialized)
+            if (!mPinInizialized)
                 initPin(child);
-            if(child.getVisibility() == View.INVISIBLE)
+            if (child.getVisibility() == View.INVISIBLE)
                 child.setVisibility(View.VISIBLE);
 
             mCurrentDirection = velocityY > 0 ? DIRECTION_UP : DIRECTION_DOWN;
 
-            ((RecyclerView)target).clearOnScrollListeners();
-            ((RecyclerView)target).addOnScrollListener(new RecyclerView.OnScrollListener() {
+            ((RecyclerView) target).clearOnScrollListeners();
+            ((RecyclerView) target).addOnScrollListener(new RecyclerView.OnScrollListener() {
                 @Override
                 public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
                     updateView(child, recyclerView, dy);
@@ -266,7 +265,7 @@ public class PinBehavior extends CoordinatorLayout.Behavior<View> {
                 @Override
                 public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
                     if (newState == RecyclerView.SCROLL_STATE_IDLE) {
-                        if(recyclerView.computeVerticalScrollOffset() == 0){
+                        if (recyclerView.computeVerticalScrollOffset() == 0) {
                             mVerticalScrollOffset = 0;
                             child.setVisibility(View.INVISIBLE);
                         }
@@ -281,67 +280,67 @@ public class PinBehavior extends CoordinatorLayout.Behavior<View> {
         return false;
     }
 
-    private void updatePinContent(View container){
+    private void updatePinContent(View container) {
 
         ItemPinned itemPinned = ((PinnedAdapter) mAdapter).getItem(mLayoutManager.findFirstVisibleItemPosition());
 
         View view = container.findViewById(R.id.pin);
 
-        if(view instanceof TextView)
-            changeText((TextView)view, (TextItemPinned)itemPinned);
-        else if(view instanceof ImageView)
-            changeImage((ImageView)view, (ImageItemPinned) itemPinned);
+        if (view instanceof TextView)
+            changeText((TextView) view, (TextItemPinned) itemPinned);
+        else if (view instanceof ImageView)
+            changeImage((ImageView) view, (ImageItemPinned) itemPinned);
     }
 
-    private void changeText(TextView view, TextItemPinned item){
+    private void changeText(TextView view, TextItemPinned item) {
         view.setText(item.getLabel());
     }
 
-    private void changeImage(ImageView view, ImageItemPinned item){
+    private void changeImage(ImageView view, ImageItemPinned item) {
         mCurrentImage = item.getImage();
         view.setImageResource(mCurrentImage);
     }
 
-    private void initPin(View child){
+    private void initPin(View child) {
         mPinInizialized = true;
 
         View pin = child.findViewById(R.id.pin);
-        if(mIsCenteredVertical){
+        if (mIsCenteredVertical) {
             centerVerticalPin(child);
         }
 
         updatePinContent(child);
 
-        if(pin instanceof TextView)
-            mBaseColor = ((TextView)pin).getCurrentTextColor();
+        if (pin instanceof TextView)
+            mBaseColor = ((TextView) pin).getCurrentTextColor();
 
-        if(mFadeEffect){
+        if (mFadeEffect) {
             setAlpha(child);
         }
     }
 
-    private void setAlpha(View child){
+    private void setAlpha(View child) {
         View pin = child.findViewById(R.id.pin);
 
-        if(pin instanceof TextView){
+        if (pin instanceof TextView) {
             int currentAlpha = Color.alpha(mBaseColor);
-            float alphaIncrement = (float)currentAlpha /(float)mItemHeight;
-            int newAlpha = (int)(currentAlpha - mCurrentOffset * alphaIncrement);
+            float alphaIncrement = (float) currentAlpha / (float) mItemHeight;
+            int newAlpha = (int) (currentAlpha - mCurrentOffset * alphaIncrement);
             int newColor = Color.argb(newAlpha, Color.red(mBaseColor), Color.green(mBaseColor), Color.blue(mBaseColor));
 
-            ((TextView)pin).setTextColor(newColor);
+            ((TextView) pin).setTextColor(newColor);
         }
     }
 
-    private void removeAlpha(View child){
+    private void removeAlpha(View child) {
         View pin = child.findViewById(R.id.pin);
 
-        if(pin instanceof TextView){
-            ((TextView)pin).setTextColor(mBaseColor);
+        if (pin instanceof TextView) {
+            ((TextView) pin).setTextColor(mBaseColor);
         }
     }
 
-    private boolean isLastItemGroup(){
+    private boolean isLastItemGroup() {
         ItemPinned item = ((PinnedAdapter) mAdapter).getItem(mLayoutManager.findFirstVisibleItemPosition());
         return item.isLast();
     }
@@ -367,6 +366,7 @@ public class PinBehavior extends CoordinatorLayout.Behavior<View> {
             currentText = source.readString();
             isFadeEnabled = source.readInt() == 0 ? false : true;
         }
+
         public SavedState(Parcelable superState, int currentOffset, String currentText,
                           boolean isFadeEnabled, int baseColor, boolean labelInitialized,
                           int itemHeight, boolean isCenteredVertical, int relOffset,
@@ -384,6 +384,7 @@ public class PinBehavior extends CoordinatorLayout.Behavior<View> {
             this.isFirstLayout = isFirstLayout;
             this.verticalScrollOffset = verticalScrollOffset;
         }
+
         @Override
         public void writeToParcel(Parcel out, int flags) {
             super.writeToParcel(out, flags);
@@ -398,12 +399,14 @@ public class PinBehavior extends CoordinatorLayout.Behavior<View> {
             out.writeInt(isFirstLayout ? 1 : 0);
             out.writeInt(verticalScrollOffset);
         }
+
         public static final Creator<SavedState> CREATOR =
                 new Creator<SavedState>() {
                     @Override
                     public SavedState createFromParcel(Parcel source) {
                         return new SavedState(source);
                     }
+
                     @Override
                     public SavedState[] newArray(int size) {
                         return new SavedState[size];

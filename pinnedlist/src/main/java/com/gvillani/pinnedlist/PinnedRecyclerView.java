@@ -30,13 +30,13 @@ public class PinnedRecyclerView extends RecyclerView {
         setDefaultLayoutManager();
     }
 
-    public void setDefaultLayoutManager(){
+    public void setDefaultLayoutManager() {
         setLayoutManager(new LinearLayoutManager(this.getContext()));
     }
 
     @Override
     public void setLayoutManager(LayoutManager layout) {
-        if(getLayoutManager() == null){
+        if (getLayoutManager() == null) {
             super.setLayoutManager(layout);
         }
     }

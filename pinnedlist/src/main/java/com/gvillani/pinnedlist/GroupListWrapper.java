@@ -21,7 +21,9 @@ public class GroupListWrapper {
 
     @Retention(RetentionPolicy.SOURCE)
     @IntDef({ASCENDING, DESCENDING})
-    public @interface ItemOrder {}
+    public @interface ItemOrder {
+    }
+
     public static final int ASCENDING = 0;
     public static final int DESCENDING = 1;
 
@@ -31,60 +33,60 @@ public class GroupListWrapper {
         mItems = new ArrayList<>();
     }
 
-    public void addGroup(Group group){
-        if(group!=null && group.getItems()!=null){
+    public void addGroup(Group group) {
+        if (group != null && group.getItems() != null) {
             mItems.addAll(group.getItems());
         }
     }
 
     public ItemPinned getItemPinned(int position) {
-        if(mItems != null){
-            try{
+        if (mItems != null) {
+            try {
                 return mItems.get(position);
-            }catch (IndexOutOfBoundsException indexOutOfBoundsException){
+            } catch (IndexOutOfBoundsException indexOutOfBoundsException) {
                 throw indexOutOfBoundsException;
             }
 
-        }else{
+        } else {
             return null;
         }
     }
 
-    public Object getItem(int position){
-        if(mItems != null){
-                return getItemPinned(position).getItem();
-        }else{
+    public Object getItem(int position) {
+        if (mItems != null) {
+            return getItemPinned(position).getItem();
+        } else {
             return null;
         }
     }
 
-    public int size(){
-        if(mItems != null)
+    public int size() {
+        if (mItems != null)
             return mItems.size();
         else
             return 0;
     }
 
-    public static GroupListWrapper createAlphabeticList(List<Selector> items){
+    public static GroupListWrapper createAlphabeticList(List<Selector> items) {
         return createAlphabeticList(items, ASCENDING);
     }
 
-    public static GroupListWrapper createAlphabeticList(List<Selector> items, @ItemOrder int order){
+    public static GroupListWrapper createAlphabeticList(List<Selector> items, @ItemOrder int order) {
         Collections.sort(items, new CompareItem());
 
-        if(order == DESCENDING){
+        if (order == DESCENDING) {
             Collections.reverse(items);
         }
 
         HashMap<String, List<ItemPinned>> hashMap = new HashMap<>();
 
-        for(Selector item : items) {
-            if (!hashMap.containsKey(item.select().substring(0,1).toUpperCase())){
+        for (Selector item : items) {
+            if (!hashMap.containsKey(item.select().substring(0, 1).toUpperCase())) {
                 List<ItemPinned> list = new ArrayList<>();
                 list.add(new TextItemPinned(item));
 
                 hashMap.put(item.select().substring(0, 1).toUpperCase(), list);
-            }else {
+            } else {
                 hashMap.get(item.select().substring(0, 1).toUpperCase()).add(new TextItemPinned(item));
             }
         }
@@ -93,8 +95,8 @@ public class GroupListWrapper {
 
         SortedSet<String> keys = new TreeSet<>(new CompareItem());
 
-        if(order == DESCENDING){
-            keys = ((TreeSet)keys).descendingSet();
+        if (order == DESCENDING) {
+            keys = ((TreeSet) keys).descendingSet();
         }
 
         keys.addAll(hashMap.keySet());
@@ -110,27 +112,26 @@ public class GroupListWrapper {
     private static class CompareItem implements Comparator {
         private Collator collator;
 
-        public CompareItem(){
+        public CompareItem() {
             this(Locale.getDefault());
         }
 
-        public CompareItem(Locale locale){
+        public CompareItem(Locale locale) {
             this.collator = Collator.getInstance(locale);
         }
 
         @Override
         public int compare(Object obj1, Object obj2) {
-            if(obj1 instanceof String && obj2 instanceof String){
-                return collator.compare((String)obj1, (String) obj2);
-            }else if(obj1 instanceof Selector && obj2 instanceof Selector){
+            if (obj1 instanceof String && obj2 instanceof String) {
+                return collator.compare((String) obj1, (String) obj2);
+            } else if (obj1 instanceof Selector && obj2 instanceof Selector) {
                 return collator.compare(((Selector) obj1).select(), ((Selector) obj2).select());
-            }else
+            } else
                 return 0;
-
         }
     }
 
-    public interface Selector{
+    public interface Selector {
         String select();
     }
 }

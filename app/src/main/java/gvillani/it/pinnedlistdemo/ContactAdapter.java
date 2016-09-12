@@ -26,17 +26,17 @@ public class ContactAdapter extends PinnedAdapter {
     @Override
     public PinnedViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = mLayoutInflater.inflate(R.layout.item_contact, parent, false);
-        ViewHolderContact viewHolderContact = new ViewHolderContact(getRowLayout(view));
-        return viewHolderContact;
+        PinnedViewHolder pinnedViewHolder = new ViewHolderContact(getRowLayout(view));
+        return pinnedViewHolder;
     }
 
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
         super.onBindViewHolder(holder, position);
 
-        final Contact contact = (Contact)mListWrapper.getItem(position);
+        final Contact contact = (Contact) mListWrapper.getItem(position);
 
-        ((ViewHolderContact)holder).tvName.setText(contact.getName());
+        ((ViewHolderContact) holder).tvName.setText(contact.getName());
         ((ViewHolderContact) holder).tvSurname.setText(contact.getSurname());
         ((ViewHolderContact) holder).ivPhoto.setImageResource(contact.getPhoto());
     }
@@ -48,9 +48,9 @@ public class ContactAdapter extends PinnedAdapter {
 
         public ViewHolderContact(View rowLayout) {
             super(rowLayout);
-            ivPhoto = (RoundedImageView)rowLayout.findViewById(R.id.photo);
-            tvName = (TextView)rowLayout.findViewById(R.id.name);
-            tvSurname = (TextView)rowLayout.findViewById(R.id.surname);
+            ivPhoto = (RoundedImageView) rowLayout.findViewById(R.id.photo);
+            tvName = (TextView) rowLayout.findViewById(R.id.name);
+            tvSurname = (TextView) rowLayout.findViewById(R.id.surname);
         }
     }
 }

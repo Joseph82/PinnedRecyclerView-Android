@@ -3,7 +3,7 @@ package com.gvillani.pinnedlist;
 /**
  * Created by Giuseppe on 08/04/2016.
  */
-public class ItemPinned <T>{
+public class ItemPinned<T> {
     private int groupSize;
     private int relativePosition;
     private T item;
@@ -28,18 +28,18 @@ public class ItemPinned <T>{
         this.relativePosition = relativePosition;
     }
 
-    public boolean isVisible(){
-        if(relativePosition == 0){
+    public boolean isVisible() {
+        if (relativePosition == 0) {
             return true;
-        }else{
+        } else {
             return false;
         }
     }
 
-    public boolean isLast(){
-        if(relativePosition == groupSize-1){
+    public boolean isLast() {
+        if (relativePosition == groupSize - 1) {
             return true;
-        }else{
+        } else {
             return false;
         }
     }

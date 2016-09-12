@@ -3,7 +3,7 @@ package com.gvillani.pinnedlist;
 /**
  * Created by Giuseppe on 08/04/2016.
  */
-public class TextItemPinned<T> extends ItemPinned<T>{
+public class TextItemPinned<T> extends ItemPinned<T> {
     private String label;
 
     public TextItemPinned(T item) {
