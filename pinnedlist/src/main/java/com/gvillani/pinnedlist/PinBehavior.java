@@ -15,9 +15,8 @@ import android.widget.TextView;
 
 import java.util.List;
 
-
 /**
- * Created by Giuseppe on 08/04/2016.
+ * This class defines a Behavior for the floating indicator (image or text)
  */
 public class PinBehavior extends CoordinatorLayout.Behavior<View> {
 
@@ -45,6 +44,10 @@ public class PinBehavior extends CoordinatorLayout.Behavior<View> {
 
     private boolean restoredInstance;
 
+    /**
+     * @param fadeEffect         TRUE if the floating pin should disappear with fade effect, FALSE otherwise
+     * @param isCenteredVertical TRUE if the floating pin should be centered vertical respect to the RecyclerView item
+     */
     public PinBehavior(boolean fadeEffect, boolean isCenteredVertical) {
         mFadeEffect = fadeEffect;
         mIsCenteredVertical = isCenteredVertical;

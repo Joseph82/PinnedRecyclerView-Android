@@ -8,7 +8,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 /**
- * Created by Giuseppe on 08/04/2016.
+ * Custom Adapter that wraps the floating pin on the left side of the RecyclerView
  */
 public abstract class PinnedAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     protected GroupListWrapper mListWrapper;
@@ -19,6 +19,12 @@ public abstract class PinnedAdapter extends RecyclerView.Adapter<RecyclerView.Vi
         mLayout = layout;
     }
 
+    /**
+     * It returns the layout that has to be passed to the view holder.
+     *
+     * @param rowView the layout that has to be shown
+     * @return a wrapped layout
+     */
     public ViewGroup getRowLayout(View rowView) {
         LinearLayout rowLayout = mLayout.getContainerRowLayout();
         rowLayout.addView(rowView);

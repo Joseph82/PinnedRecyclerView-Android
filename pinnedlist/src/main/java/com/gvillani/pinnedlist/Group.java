@@ -1,19 +1,20 @@
 package com.gvillani.pinnedlist;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Created by Giuseppe on 08/04/2016.
+ * This class wraps the list of items united by the same String label or image
  */
-public class Group<T> {
-    protected List<ItemPinned<T>> items;
+public class Group {
+    protected List<ItemPinned> items;
 
-    public Group() {
-        items = new ArrayList<>();
-    }
-
-    public Group(List<ItemPinned<T>> items, String label) {
+    /**
+     * Creates a Group using a label for grouping items
+     *
+     * @param items the list of items
+     * @param label the String that rapresent the label to be shown
+     */
+    public Group(List<ItemPinned> items, String label) {
         this.items = items;
         if (this.items != null) {
             for (int i = 0; i < this.items.size(); i++) {
@@ -30,7 +31,13 @@ public class Group<T> {
         item.setRelativePosition(position);
     }
 
-    public Group(List<ItemPinned<T>> items, int resourceId) {
+    /**
+     * Creates a Group using an image for grouping items
+     *
+     * @param items      the list of items
+     * @param resourceId resource id associated with the image.
+     */
+    public Group(List<ItemPinned> items, int resourceId) {
         this.items = items;
         if (this.items != null) {
             for (int i = 0; i < this.items.size(); i++) {
@@ -50,7 +57,7 @@ public class Group<T> {
         return 0;
     }
 
-    public List<ItemPinned<T>> getItems() {
+    public List<ItemPinned> getItems() {
         return items;
     }
 }

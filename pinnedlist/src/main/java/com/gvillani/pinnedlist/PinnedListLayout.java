@@ -181,10 +181,19 @@ public class PinnedListLayout extends CoordinatorLayout {
         mPinLayout.requestLayout();
     }
 
+    /**
+     * Return the RecyclerView wrapped in the layout
+     *
+     * @return {@link RecyclerView} object
+     */
     public RecyclerView getRecyclerView() {
         return mRecyclerView;
     }
 
+    /**
+     * Returns the container for the row layout, that includes the floating pin
+     * @return
+     */
     public LinearLayout getContainerRowLayout() {
         LinearLayout ll = new LinearLayout(this.getContext());
         ll.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));

@@ -1,8 +1,5 @@
 package com.gvillani.pinnedlist;
 
-/**
- * Created by Giuseppe on 08/04/2016.
- */
 public class ImageItemPinned<T> extends ItemPinned<T> {
     private int image;
 

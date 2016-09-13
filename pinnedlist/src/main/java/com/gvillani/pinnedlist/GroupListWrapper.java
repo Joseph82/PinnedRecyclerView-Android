@@ -15,7 +15,7 @@ import java.util.SortedSet;
 import java.util.TreeSet;
 
 /**
- * Created by Giuseppe on 08/04/2016.
+ * Class that wraps all the items that have to be mapped in the adapter
  */
 public class GroupListWrapper {
 
@@ -33,12 +33,23 @@ public class GroupListWrapper {
         mItems = new ArrayList<>();
     }
 
+    /**
+     * Adds a new group to the wrapper
+     *
+     * @param group the {@link Group} that has to be added
+     */
     public void addGroup(Group group) {
         if (group != null && group.getItems() != null) {
             mItems.addAll(group.getItems());
         }
     }
 
+    /**
+     * Returns the {@link ItemPinned} based on the position paramter
+     *
+     * @param position the position inside the list
+     * @return the {@link ItemPinned} at position parameter or null
+     */
     public ItemPinned getItemPinned(int position) {
         if (mItems != null) {
             try {
@@ -52,6 +63,12 @@ public class GroupListWrapper {
         }
     }
 
+    /**
+     * Returns the Object inside the wrapper from the list
+     *
+     * @param position the position inside the list
+     * @return the {@link Object} at position parameter or null
+     */
     public Object getItem(int position) {
         if (mItems != null) {
             return getItemPinned(position).getItem();
@@ -67,10 +84,22 @@ public class GroupListWrapper {
             return 0;
     }
 
+    /**
+     * Returns a {@link GroupListWrapper} that wraps a list of item, ordered in ASCENDING mode
+     * @param items the items to be ordered
+     * @return      a {@link GroupListWrapper} object
+     */
     public static GroupListWrapper createAlphabeticList(List<Selector> items) {
         return createAlphabeticList(items, ASCENDING);
     }
 
+    /**
+     * Returns a {@link GroupListWrapper} that wraps an ordered list of items
+     *
+     * @param items the items to be ordered
+     * @param order the ordering mode: DISCENDING or ASCENDING
+     * @return      a {@link GroupListWrapper} object
+     */
     public static GroupListWrapper createAlphabeticList(List<Selector> items, @ItemOrder int order) {
         Collections.sort(items, new CompareItem());
 
