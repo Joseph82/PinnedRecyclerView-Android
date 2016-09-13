@@ -9,6 +9,24 @@ This library allows you to create a list of items that are pinned by a floating 
 
 ## Usage
 
+### Add library
+
+#### Gradle
+
+```groovy 
+compile 'com.gvillani:pinnedlist:0.9.2'
+```
+#### Maven
+
+```xml 
+<dependency>
+  <groupId>com.gvillani</groupId>
+  <artifactId>pinnedlist</artifactId>
+  <version>0.9.2</version>
+  <type>pom</type>
+</dependency>
+```
+
 ### Pinned Text List
 
 Add the `PinnedListLayout` in your Layout.
@@ -78,14 +96,14 @@ GroupListWrapper listGroup = new GroupListWrapper();
 Then you need to create a list of wrapping object (ItemPinned) that contain your costom object (for example a Contact) and then you add
 
 ```Java
-ItemPinned<Contact> itemD1 = new ImageItemPinned<>(new Contact("Ben","Weber", R.drawable.contact1)); 
-ItemPinned<Contact> itemD2 = new ImageItemPinned<>(new Contact("Emma","Hartmann", R.drawable.contact9)); 
+ItemPinned itemD1 = new ImageItemPinned(new Contact("Ben","Weber", R.drawable.contact1)); 
+ItemPinned itemD2 = new ImageItemPinned(new Contact("Emma","Hartmann", R.drawable.contact9)); 
 
-List<ItemPinned<Contact>> listD = new ArrayList<>();
+List<ItemPinned> listD = new ArrayList<>();
 listD.add(itemD1);
 listD.add(itemD2);
 
-Group<Contact> groupD = new Group<>(listD, R.drawable.germany);
+Group groupD = new Group(listD, R.drawable.germany);
 ```
 
 And eventually you add one or more `Group` object to the `GroupListWrapper`
