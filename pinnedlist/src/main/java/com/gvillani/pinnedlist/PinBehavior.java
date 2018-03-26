@@ -345,7 +345,11 @@ public class PinBehavior extends CoordinatorLayout.Behavior<View> {
 
     private boolean isLastItemGroup() {
         ItemPinned item = ((PinnedAdapter) mAdapter).getItem(mLayoutManager.findFirstVisibleItemPosition());
-        return item.isLast();
+        if (item == null) {
+            return true;
+        } else {
+            return item.isLast();
+        }
     }
 
     protected static class SavedState extends View.BaseSavedState {
