@@ -289,10 +289,15 @@ public class PinBehavior extends CoordinatorLayout.Behavior<View> {
 
         View view = container.findViewById(R.id.pin);
 
-        if (view instanceof TextView)
-            changeText((TextView) view, (TextItemPinned) itemPinned);
-        else if (view instanceof ImageView)
-            changeImage((ImageView) view, (ImageItemPinned) itemPinned);
+        if (itemPinned == null) {
+            view.setVisibility(View.INVISIBLE);
+        } else {
+            view.setVisibility(View.VISIBLE);
+            if (view instanceof TextView)
+                changeText((TextView) view, (TextItemPinned) itemPinned);
+            else if (view instanceof ImageView)
+                changeImage((ImageView) view, (ImageItemPinned) itemPinned);
+        }
     }
 
     private void changeText(TextView view, TextItemPinned item) {
