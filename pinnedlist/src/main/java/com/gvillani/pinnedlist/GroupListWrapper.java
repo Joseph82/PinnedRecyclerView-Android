@@ -1,6 +1,7 @@
 package com.gvillani.pinnedlist;
 
 import android.support.annotation.IntDef;
+import android.support.annotation.Nullable;
 
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
@@ -50,12 +51,12 @@ public class GroupListWrapper {
      * @param position the position inside the list
      * @return the {@link ItemPinned} at position parameter or null
      */
-    public ItemPinned getItemPinned(int position) {
+    @Nullable public ItemPinned getItemPinned(int position) {
         if (mItems != null) {
             try {
                 return mItems.get(position);
             } catch (IndexOutOfBoundsException indexOutOfBoundsException) {
-                throw indexOutOfBoundsException;
+                return null;
             }
 
         } else {
@@ -71,7 +72,12 @@ public class GroupListWrapper {
      */
     public Object getItem(int position) {
         if (mItems != null) {
-            return getItemPinned(position).getItem();
+            ItemPinned itemPinned = getItemPinned(position);
+            if (itemPinned != null) {
+                return itemPinned.getItem();
+            } else {
+                return null;
+            }
         } else {
             return null;
         }

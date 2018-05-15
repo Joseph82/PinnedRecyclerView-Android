@@ -289,10 +289,15 @@ public class PinBehavior extends CoordinatorLayout.Behavior<View> {
 
         View view = container.findViewById(R.id.pin);
 
-        if (view instanceof TextView)
-            changeText((TextView) view, (TextItemPinned) itemPinned);
-        else if (view instanceof ImageView)
-            changeImage((ImageView) view, (ImageItemPinned) itemPinned);
+        if (itemPinned == null) {
+            view.setVisibility(View.INVISIBLE);
+        } else {
+            view.setVisibility(View.VISIBLE);
+            if (view instanceof TextView)
+                changeText((TextView) view, (TextItemPinned) itemPinned);
+            else if (view instanceof ImageView)
+                changeImage((ImageView) view, (ImageItemPinned) itemPinned);
+        }
     }
 
     private void changeText(TextView view, TextItemPinned item) {
@@ -345,7 +350,11 @@ public class PinBehavior extends CoordinatorLayout.Behavior<View> {
 
     private boolean isLastItemGroup() {
         ItemPinned item = ((PinnedAdapter) mAdapter).getItem(mLayoutManager.findFirstVisibleItemPosition());
-        return item.isLast();
+        if (item == null) {
+            return true;
+        } else {
+            return item.isLast();
+        }
     }
 
     protected static class SavedState extends View.BaseSavedState {
