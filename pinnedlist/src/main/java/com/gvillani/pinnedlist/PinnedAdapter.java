@@ -37,7 +37,7 @@ public abstract class PinnedAdapter extends RecyclerView.Adapter<RecyclerView.Vi
         if (holder instanceof PinnedViewHolder) {
             ItemPinned currentItem = mListWrapper.getItemPinned(position);
 
-            if (currentItem.isVisible()) {
+            if (currentItem != null && currentItem.isVisible()) {
                 ((PinnedViewHolder) holder).viewPin.setVisibility(View.VISIBLE);
             } else {
                 ((PinnedViewHolder) holder).viewPin.setVisibility(View.INVISIBLE);
