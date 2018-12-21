@@ -3,9 +3,9 @@ This library allows you to create a list of items that are pinned by a floating 
 
 ## PinnedList in action
 
-![Demo Text Pinned](http://www.dropbox.com/s/yu2558bbmv3twc5/text_demo1.gif?raw=true)
-
 ![Demo Image Pinned](http://www.dropbox.com/s/t7m7yd8vh6w4jib/image_demo1.gif?raw=true)
+
+![Demo Text Pinned](http://www.dropbox.com/s/yu2558bbmv3twc5/text_demo1.gif?raw=true)
 
 ## Usage
 
