@@ -1,7 +1,7 @@
-# PinnedList Android library
+# PinnedRecyclerView Android library
 This library allows you to create a list of items that are pinned by a floating label (text or image) on the left of the list .
 
-## PinnedList in action
+## PinnedRecyclerView in action
 
 ![Demo Text Pinned](https://github.com/Joseph82/PinnedList-Android/blob/master/text_demo1.gif?raw=true)
 
